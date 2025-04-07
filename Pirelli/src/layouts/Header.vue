@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="bg-[#F3F4F6] shadow-md">
+  <div class="bg-[#F3F4F6] shadow-md ">
     <div class="max-w-[1320px] mx-auto my-0">
       <div class="flex items-center justify-between h-full p-8 items-center">
         <div class="flex gap-4 items-center">
