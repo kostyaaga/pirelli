@@ -1,8 +1,10 @@
 <script setup>
+
+import Header from "@/layouts/Header.vue";
+import Footer from "@/layouts/Footer.vue";
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
+  <Header/>
+  <router-view></router-view>
 </template>

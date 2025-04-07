@@ -1,1 +1,13 @@
 @import "tailwindcss";
+@font-face {
+    font-family: 'inter-regular';
+    src: url('fonts/Inter_24pt-Regular.ttf');
+}
+
+*{
+    font-family: 'inter-regular', serif;
+}
+
+body{
+    background: #F2ECEB;
+}
