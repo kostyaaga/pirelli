@@ -1,5 +1,15 @@
 <script setup>
 
+import {inject} from "vue";
+
+const handleLogout = () => {
+  localStorage.removeItem('authToken'); // Очищаем токен
+  window.location.reload();
+};
+
+
+const { isAuthenticated } = inject('auth');
+
 </script>
 
 <template>
@@ -15,11 +25,17 @@
         <div class="flex gap-6 items-center">
           <router-link to="/list">Список блюд</router-link>
           <a href="">Мои рецепты</a>
-          <a href="">Главная</a>
+          <router-link to="/">Главная</router-link>
         </div>
-        <div class="flex gap-6 items-center">
-          <router-link to="/register">Регистрация</router-link>
-          <router-link to="/login">Вход</router-link>
+        <div>
+          <div v-if="!isAuthenticated()"  class="flex gap-6 items-center" >
+            <router-link to="/register">Регистрация</router-link>
+            <router-link to="/login">Вход</router-link>
+          </div>
+          <div v-else class="flex gap-6 items-center">
+            <router-link to="/profile">Профиль</router-link>
+            <a @click="handleLogout" class="cursor-pointer">Выйти</a>
+          </div>
         </div>
       </div>
     </nav>

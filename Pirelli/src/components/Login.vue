@@ -1,11 +1,13 @@
 <script setup>
-import { ref } from 'vue';
-import router from "@/router/index.js";
+import {inject, provide, ref} from 'vue';
+import { useRouter } from 'vue-router';
 
 const showPassword = ref(false);
 const isLoading = ref(false);
 const status = ref('');
 const responseData = ref(null);
+const router = useRouter();
+const { setToken } = inject('auth');
 
 const formData = ref({
   email: '',
@@ -62,8 +64,8 @@ const handleSubmit = async () => {
     status.value = 'Успешный вход!';
 
     if (responseData.value.token) {
-      localStorage.setItem('authToken', responseData.value.token);
-      console.log('Токен сохранен в localStorage:', localStorage.getItem('authToken'));
+      setToken(responseData.value.token);
+      router.push('/');
     }
 
   } catch (error) {
@@ -73,6 +75,7 @@ const handleSubmit = async () => {
     isLoading.value = false;
   }
 };
+
 </script>
 
 <template>

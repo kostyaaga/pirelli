@@ -11,11 +11,41 @@ const formData = ref({
   confirmPassword: ''
 });
 
+const validateForm = () => {
+  if (!formData.value.email) {
+    status.value = 'Пожалуйста, введите email';
+    return false;
+  }
+
+  if (!formData.value.password && formData.value.confirmPassword) {
+    status.value = 'Пожалуйста, введите пароли';
+    return false;
+  }
+
+
+  if (formData.value.password.length < 6) {
+    status.value = 'Пароль должен содержать минимум 6 символов';
+    return false;
+  }
+
+  if (!/[a-zA-Z]/.test(formData.value.password)) {
+    status.value = 'Пароль должен содержать латинские буквы';
+    return false;
+  }
+
+  if (!/[0-9]/.test(formData.value.password)) {
+    status.value = 'Пароль должен содержать цифры';
+    return false;
+  }
+  return true;
+};
+
 const status = ref('');
 const isLoading = ref(false);
 const responseData = ref(null);
 
 async function handleSubmit() {
+  if (!validateForm()) return;
   if (formData.value.password !== formData.value.confirmPassword) {
     status.value = 'Пароли не совпадают!';
     return;
