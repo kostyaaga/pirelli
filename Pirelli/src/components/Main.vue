@@ -146,16 +146,16 @@ const images = [
           <img src="../assets/image/arrow1.svg" alt="">
         </div>
         <div class="">
-          <img class="w-[426px] h-auto" src="../assets/image/slide1.jpg" alt="">
+          <img class="w-[426px] h-auto mt-30" src="../assets/image/slide1.jpg" alt="">
         </div>
         <div class="">
           <p class="w-[426px]" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium aspernatur doloribus ducimus eius est, et facilis fuga maiores necessitatibus neque non optio quae quasi quisquam quo, similique sunt ut.</p>
           <img src="../assets/image/arrow3.svg" alt="">
         </div>
       </div>
-      <div class="flex gap-3 my-10">
+      <div class="flex gap-3 my-10 content-center">
         <div class="">
-          <img class="w-[426px] w-[426px]" src="../assets/image/slide2.jpg" alt="">
+          <img class="w-[426px] w-[426px] mt-30" src="../assets/image/slide2.jpg" alt="">
         </div>
         <div class="">
           <p class="w-[426px]" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium aspernatur doloribus ducimus eius est, et facilis fuga maiores necessitatibus neque non optio quae quasi quisquam quo, similique sunt ut.</p>
