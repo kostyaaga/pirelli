@@ -36,7 +36,6 @@ defineProps({
           alt="звезда"
           class="w-8 h-8 my-3"
       />
-      {{grade}}
     </div>
     <p class="w-full truncate whitespace-nowrap overflow-hidden text-black">
       {{ text }}

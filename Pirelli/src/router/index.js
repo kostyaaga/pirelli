@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Main from '@/components/Main.vue'
-import List from '@/components/List.vue'
 import Register from "@/components/Register.vue";
 import Login from "@/components/Login.vue";
 import Profile from "@/components/Profile.vue";
+import Lists from "@/components/Lists.vue";
 
 const routes = [
     {
@@ -13,9 +13,9 @@ const routes = [
         component: Main
     },
     {
-        path: '/list',
-        name: 'List',
-        component: List
+        path: '/lists',
+        name: 'Lists',
+        component: Lists
     },
     {
         path: '/register',
