@@ -1,10 +1,22 @@
 <script setup>
 import List from "@/components/List.vue";
-import { onMounted, ref } from "vue";
+import {onMounted, reactive, ref, watch} from "vue";
 
 const list = ref([]);
+const filteredList = ref([]);
 const isLoading = ref(true);
 const error = ref(null);
+const filters = reactive({
+  sortBy: 'title',
+  searchQuery: ''
+})
+const isExpandedIngredients = ref(false);
+const isExpandedCategory = ref(false);
+const isExpandedRate = ref(false);
+const whiteInput = ref('');
+const blackInput = ref('');
+const whiteArray = ref([]);
+const blackArray = ref([]);
 
 const fetchDishes = async () => {
   try {
@@ -16,6 +28,7 @@ const fetchDishes = async () => {
 
     const data = await response.json();
     list.value = data;
+    applyFilters();
   } catch(err) {
     console.error("Ошибка при загрузке:", err);
     error.value = err.message;
@@ -24,28 +37,284 @@ const fetchDishes = async () => {
   }
 }
 
+const onChangeSearchInput = (event) => {
+  filters.searchQuery = event.target.value;
+}
+
+const applyFilters = () => {
+  let result = [...list.value];
+
+  if (filters.searchQuery) {
+    const query = filters.searchQuery.toLowerCase();
+    result = result.filter(item =>
+        item.title?.toLowerCase()?.includes(query)
+    );
+  }
+
+  const checkIngredients = (item, products) => {
+    if (!item.ingredient) return false;
+
+    if (Array.isArray(item.ingredient)) {
+      return item.ingredient.some(ing => {
+        const ingStr = String(ing).toLowerCase();
+        return products.some(p => ingStr.includes(p.toLowerCase()));
+      });
+    }
+
+    return false;
+  };
+
+  if (whiteArray.value.length > 0) {
+    result = result.filter(item =>
+        checkIngredients(item, whiteArray.value)
+    );
+  }
+
+  if (blackArray.value.length > 0) {
+    result = result.filter(item =>
+        !checkIngredients(item, blackArray.value)
+    );
+  }
+
+  if (filters.sortBy) {
+    result.sort((a, b) => a[filters.sortBy]?.localeCompare(b[filters.sortBy] ?? ''));
+  }
+
+  filteredList.value = result;
+};
+
+function filterIngredient(){
+  isExpandedIngredients.value = true;
+  isExpandedCategory.value = false;
+  isExpandedRate.value = false;
+}
+
+function filterCategory(){
+  isExpandedIngredients.value = false;
+  isExpandedCategory.value = true;
+  isExpandedRate.value = false;
+}
+
+function filterRating(){
+  isExpandedIngredients.value = false;
+  isExpandedCategory.value = false;
+  isExpandedRate.value = true;
+}
+
+function addProduct() {
+  if (whiteInput.value !== "" ){
+    whiteArray.value.push(whiteInput.value);
+    whiteInput.value = ''
+    applyFilters();
+  }
+  if (blackInput.value !== ""){
+    blackArray.value.push(blackInput.value);
+    blackInput.value = ''
+    applyFilters();
+  }
+
+}
+
+const removeProduct = (arrayName, index) => {
+  if (arrayName === 'whiteArray') {
+    whiteArray.value.splice(index, 1);
+  } else if (arrayName === 'blackArray') {
+    blackArray.value.splice(index, 1);
+  }
+  applyFilters();
+};
+
+
+watch(filters, () => {
+  applyFilters();
+}, { deep: true });
+
+
 onMounted(fetchDishes);
 </script>
 
 <template>
+  <div>
+    <div class="flex align-center gap-5 justify-center mt-10">
+      <div @click="filterIngredient" class="flex gap-5 cursor-pointer">
+        <p>ингридиенты</p>
+        <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+      </div>
+      <div @click="filterCategory" class="flex gap-5 cursor-pointer">
+        <p>категории</p>
+        <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+      </div>
+      <div @click="filterRating" class="flex gap-5 cursor-pointer">
+        <p>оценки</p>
+        <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+      </div>
+    </div>
+    <div class="flex justify-center">
+      <!-- Ингредиенты - анимация fade & slide -->
+      <transition
+          enter-active-class="transition-all duration-500 ease-out"
+          enter-from-class="opacity-0 -translate-x-10"
+          enter-to-class="opacity-100 translate-x-0"
+          leave-active-class="transition-all duration-300 ease-in"
+          leave-from-class="opacity-100 translate-x-0"
+          leave-to-class="opacity-0 translate-x-10"
+      >
+        <div v-if="isExpandedIngredients" class="bg-white p-5 mt-5 rounded-xl shadow-xl">
+          <div class="flex gap-5 bg-white">
+            <!-- Белый список -->
+            <div class="flex gap-3 cursor-pointer flex-1">
+              <input
+                  v-model="whiteInput"
+                  placeholder="Введите продукт"
+                  class="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-orange-300 focus:border-orange-400 transition-all duration-300"
+              >
+              <button
+                  @click="addProduct('whiteArray')"
+                  class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-all duration-300 hover:scale-105 active:scale-95"
+              >
+                Добавить
+              </button>
+            </div>
+
+            <!-- Черный список -->
+            <div class="flex gap-3 cursor-pointer flex-1">
+              <input
+                  v-model="blackInput"
+                  placeholder="Введите продукт"
+                  class="flex-1 p-2 border rounded-lg focus:ring-2 focus:ring-orange-300 focus:border-orange-400 transition-all duration-300"
+              >
+              <button
+                  @click="addProduct('blackArray')"
+                  class="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition-all duration-300 hover:scale-105 active:scale-95"
+              >
+                Убрать
+              </button>
+            </div>
+          </div>
+
+          <!-- Списки продуктов -->
+          <div class="flex mt-10 justify-between text-xl space-x-8">
+            <!-- Белый список -->
+            <div class="flex-1 space-y-3">
+              <transition-group
+                  name="list"
+                  tag="div"
+                  class="space-y-3"
+                  enter-active-class="transition-all duration-300 ease-out"
+                  enter-from-class="opacity-0 translate-y-4"
+                  enter-to-class="opacity-100 translate-y-0"
+                  leave-active-class="transition-all duration-200 ease-in absolute"
+                  leave-from-class="opacity-100 translate-y-0"
+                  leave-to-class="opacity-0 -translate-y-4"
+                  move-class="transition-all duration-500 ease-in-out"
+              >
+                <div
+                    v-for="(product, index) in whiteArray"
+                    :key="'white-'+index"
+                    class="flex items-center justify-between p-3 bg-orange-50 rounded-lg group relative"
+                >
+                  <span class="transition-all duration-200 group-hover:text-orange-600">{{product}}</span>
+                  <button
+                      @click="removeProduct('whiteArray', index)"
+                      class="p-1 rounded-full hover:bg-orange-100 transition-all duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-red-500 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </transition-group>
+            </div>
+
+            <!-- Черный список -->
+            <div class="flex-1 space-y-3">
+              <transition-group
+                  name="list"
+                  tag="div"
+                  class="space-y-3"
+                  enter-active-class="transition-all duration-300 ease-out"
+                  enter-from-class="opacity-0 translate-y-4"
+                  enter-to-class="opacity-100 translate-y-0"
+                  leave-active-class="transition-all duration-200 ease-in absolute"
+                  leave-from-class="opacity-100 translate-y-0"
+                  leave-to-class="opacity-0 -translate-y-4"
+                  move-class="transition-all duration-500 ease-in-out"
+              >
+                <div
+                    v-for="(product, index) in blackArray"
+                    :key="'black-'+index"
+                    class="flex items-center justify-between p-3 bg-gray-100 rounded-lg group relative"
+                >
+                  <span class="transition-all duration-200 group-hover:text-gray-700">{{product}}</span>
+                  <button
+                      @click="removeProduct('blackArray', index)"
+                      class="p-1 rounded-full hover:bg-gray-200 transition-all duration-200"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-red-500 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </transition-group>
+            </div>
+          </div>
+        </div>
+      </transition>
+
+      <!-- Категории - анимация flip -->
+      <transition
+          enter-active-class="transition-all duration-500 ease-out"
+          enter-from-class="opacity-0 rotate-x-90"
+          enter-to-class="opacity-100 rotate-x-0"
+          leave-active-class="transition-all duration-300 ease-in"
+          leave-from-class="opacity-100 rotate-x-0"
+          leave-to-class="opacity-0 rotate-x-90"
+      >
+        <div v-if="isExpandedCategory" class="bg-white p-5 mt-5 rounded-xl shadow-xl transform-style-preserve-3d">
+          <p class="text-xl font-medium">Категории</p>
+        </div>
+      </transition>
+
+      <!-- Рейтинг - анимация bounce -->
+      <transition
+          enter-active-class="transition-all duration-500 ease-out"
+          enter-from-class="opacity-0 scale-50"
+          enter-to-class="opacity-100 scale-100"
+          leave-active-class="transition-all duration-300 ease-in"
+          leave-from-class="opacity-100 scale-100"
+          leave-to-class="opacity-0 scale-50"
+      >
+        <div v-if="isExpandedRate" class="bg-white p-5 mt-5 rounded-xl shadow-xl">
+          <p class="text-xl font-medium">Рейтинг</p>
+        </div>
+      </transition>
+    </div>
+  </div>
+  <div>
+    <input
+        @input="onChangeSearchInput"
+        type="text"
+        placeholder="Поиск..."
+    >
+  </div>
   <div v-if="isLoading">Загрузка...</div>
   <div v-else-if="error">Ошибка: {{ error }}</div>
   <div v-else class="grid grid-cols-2 gap-15 m-30">
     <List
-        v-for="item in list"
-        :key="item.id"
-        :title="item.title"
-        :author="item.author"
-        :description="item.description"
-        :image="item.image"
-        :time="item.time"
-        :grade="item.grade"
-        :ingredients="item.ingredients"
-        :calories="item.calories"
-        :proteins="item.proteins"
-        :fats="item.fats"
-        :carbohydrates="item.carbohydrates"
-        :ingredient="item.ingredient"
+    v-for="item in filteredList"
+    :key="item.id"
+    :title="item.title"
+    :author="item.author"
+    :description="item.description"
+    :image="item.image"
+    :time="item.time"
+    :grade="item.grade"
+    :ingredients="item.ingredients"
+    :calories="item.calories"
+    :proteins="item.proteins"
+    :fats="item.fats"
+    :carbohydrates="item.carbohydrates"
+    :ingredient="item.ingredient"
     />
   </div>
 </template>

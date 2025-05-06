@@ -30,9 +30,7 @@ function toggleIngredientsDetails() {
 
 <template>
   <div class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
-    <!-- Основной контент -->
     <div class="flex">
-      <!-- Картинка с анимацией -->
       <div class="w-1/3 flex-shrink-0 overflow-hidden">
         <img
             :src="image"
@@ -41,7 +39,6 @@ function toggleIngredientsDetails() {
         >
       </div>
 
-      <!-- Текстовая часть -->
       <div class="flex flex-col gap-4 p-6 w-2/3">
         <div class="space-y-2">
           <h3 class="text-3xl font-bold transition-all duration-300 hover:text-amber-300 hover:translate-x-1">{{ title }}</h3>
@@ -95,7 +92,6 @@ function toggleIngredientsDetails() {
       </div>
     </div>
 
-    <!-- Выдвигающаяся панель с КБЖУ -->
     <transition
         enter-active-class="transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
         leave-active-class="transition-all duration-300 ease-in"
@@ -109,25 +105,22 @@ function toggleIngredientsDetails() {
           class="bg-stone-400/90 p-6 border-t border-stone-600"
       >
         <div class="grid grid-cols-4 gap-4 text-center">
-          <!-- Калории -->
+
           <div class="p-4 bg-stone-500/50 rounded-lg transition-all duration-500 hover:scale-105 hover:bg-amber-500/20 hover:shadow-lg">
             <p class="text-amber-300 font-bold animate-pulse">Калории</p>
             <p class="text-2xl font-mono">{{ calories }}</p>
           </div>
 
-          <!-- Белки -->
           <div class="p-4 bg-stone-500/50 rounded-lg transition-all duration-500 hover:scale-105 hover:bg-amber-500/20 hover:shadow-lg" style="transition-delay: 100ms">
             <p class="text-amber-300 font-bold animate-pulse">Белки</p>
             <p class="text-2xl font-mono">{{ proteins }}г</p>
           </div>
 
-          <!-- Жиры -->
           <div class="p-4 bg-stone-500/50 rounded-lg transition-all duration-500 hover:scale-105 hover:bg-amber-500/20 hover:shadow-lg" style="transition-delay: 200ms">
             <p class="text-amber-300 font-bold animate-pulse">Жиры</p>
             <p class="text-2xl font-mono">{{ fats }}г</p>
           </div>
 
-          <!-- Углеводы -->
           <div class="p-4 bg-stone-500/50 rounded-lg transition-all duration-500 hover:scale-105 hover:bg-amber-500/20 hover:shadow-lg" style="transition-delay: 300ms">
             <p class="text-amber-300 font-bold animate-pulse">Углеводы</p>
             <p class="text-2xl font-mono">{{ carbohydrates }}г</p>
@@ -136,7 +129,6 @@ function toggleIngredientsDetails() {
       </div>
     </transition>
 
-    <!-- Выдвигающаяся панель с ингредиентами -->
     <transition
         enter-active-class="transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]"
         leave-active-class="transition-all duration-300 ease-in"

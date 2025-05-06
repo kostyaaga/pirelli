@@ -1,5 +1,5 @@
 <script setup>
-import {inject, provide, ref} from 'vue';
+import { inject, ref} from 'vue';
 import { useRouter } from 'vue-router';
 
 const showPassword = ref(false);
@@ -39,7 +39,6 @@ const resetStatus = () => {
 
 const handleSubmit = async () => {
   if (!validateForm()) return;
-
   isLoading.value = true;
   resetStatus();
 
