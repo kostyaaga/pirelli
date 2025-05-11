@@ -5,6 +5,7 @@ import Register from "@/components/Register.vue";
 import Login from "@/components/Login.vue";
 import Profile from "@/components/Profile.vue";
 import Lists from "@/components/Lists.vue";
+import DishDetail from "@/components/DishDetail.vue"
 
 const routes = [
     {
@@ -31,9 +32,14 @@ const routes = [
         path: '/profile',
         name: 'Profile',
         component: Profile
-    }
+    },
+    {
+        path: '/dish/:id',
+        name: 'DishDetail',
+        component: DishDetail,
+        props: true
+    },
 ]
-
 const router = createRouter({
     history: createWebHistory(),
     routes

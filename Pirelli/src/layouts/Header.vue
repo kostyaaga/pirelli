@@ -23,9 +23,9 @@ const { isAuthenticated } = inject('auth');
           <router-link to="/" class="text-xl">Pirelli</router-link>
         </div>
         <div class="flex gap-6 items-center">
+          <router-link to="/">Главная</router-link>
           <router-link to="/lists">Список блюд</router-link>
           <a href="">Мои рецепты</a>
-          <router-link to="/">Главная</router-link>
         </div>
         <div>
           <div v-if="!isAuthenticated()"  class="flex gap-6 items-center" >

@@ -1,7 +1,15 @@
 <script setup>
 import { ref } from "vue";
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const goToDish = (id) => {
+  router.push({ name: 'DishDetail', params: { id } })
+}
 
 defineProps({
+  id: { type: Number, required: true },
   title: { type: String, required: true },
   author: { type: String, required: true },
   description: { type: String, required: true },
@@ -29,7 +37,7 @@ function toggleIngredientsDetails() {
 </script>
 
 <template>
-  <div class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
+  <div @click="goToDish(id)"  class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
     <div class="flex">
       <div class="w-1/3 flex-shrink-0 overflow-hidden">
         <img
