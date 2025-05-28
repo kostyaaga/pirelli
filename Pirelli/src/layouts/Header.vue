@@ -18,7 +18,7 @@ const { isAuthenticated } = inject('auth');
       <div class="flex items-center justify-between h-full p-8 items-center">
         <div class="flex gap-4 items-center">
           <router-link to="/">
-            <img src="../assets/image/logo.svg" alt="">
+            <img src="../../public/images/logo.svg" alt="">
           </router-link>
           <router-link to="/" class="text-xl">Pirelli</router-link>
         </div>

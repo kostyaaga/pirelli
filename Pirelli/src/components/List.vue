@@ -34,12 +34,14 @@ function toggleNutritionDetails() {
 function toggleIngredientsDetails() {
   isExpandedIngredients.value = !isExpandedIngredients.value;
 }
+
+let imageTest = "img1"
 </script>
 
 <template>
-  <div @click="goToDish(id)"  class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
+  <div class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
     <div class="flex">
-      <div class="w-1/3 flex-shrink-0 overflow-hidden">
+      <div @click="goToDish(id)" class="w-1/3 flex-shrink-0 overflow-hidden">
         <img
             :src="image"
             alt="Изображение рецепта"
@@ -48,7 +50,7 @@ function toggleIngredientsDetails() {
       </div>
 
       <div class="flex flex-col gap-4 p-6 w-2/3">
-        <div class="space-y-2">
+        <div @click="goToDish(id)" class="space-y-2">
           <h3 class="text-3xl font-bold transition-all duration-300 hover:text-amber-300 hover:translate-x-1">{{ title }}</h3>
           <p class="text-2xl text-amber-200 transition-all duration-500 hover:translate-x-2">{{ author }}</p>
         </div>
@@ -58,11 +60,11 @@ function toggleIngredientsDetails() {
         <div class="mt-auto space-y-4">
           <div class="flex gap-8">
             <div class="flex items-center gap-2 transition-all duration-300 hover:scale-105">
-              <img src="../assets/image/clock.svg" alt="Время" class="w-6 h-6 animate-pulse">
+              <img src="../../public/images/clock.svg" alt="Время" class="w-6 h-6 animate-pulse">
               <span>{{ time }} минут</span>
             </div>
             <div class="flex items-center gap-2 transition-all duration-300 hover:scale-105">
-              <img src="../assets/image/star-white.svg" alt="Оценка" class="w-6 h-6 animate-bounce">
+              <img src="../../public/images/star-white.svg" alt="Оценка" class="w-6 h-6 animate-bounce">
               <span>{{ grade }} оценка</span>
             </div>
           </div>

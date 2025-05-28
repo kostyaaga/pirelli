@@ -118,8 +118,8 @@ async function handleSubmit() {
             class="absolute right-2 top-2 text-gray-500 hover:text-gray-700 focus:outline-none"
             type="button"
         >
-          <span v-if="showPassword"><img src="../assets/image/eye.svg" alt=""></span>
-          <span v-else><img src="../assets/image/eye-slash.svg" alt=""></span>
+          <span v-if="showPassword"><img src="../../public/images/eye.svg" alt=""></span>
+          <span v-else><img src="../../public/images/eye-slash.svg" alt=""></span>
         </button>
       </div>
 
@@ -136,8 +136,8 @@ async function handleSubmit() {
             class="absolute right-2 top-2 text-gray-500 hover:text-gray-700 focus:outline-none"
             type="button"
         >
-          <span v-if="showPassword1"><img src="../assets/image/eye.svg" alt=""></span>
-          <span v-else><img src="../assets/image/eye-slash.svg" alt=""></span>
+          <span v-if="showPassword1"><img src="../../public/images/eye.svg" alt=""></span>
+          <span v-else><img src="../../public/images/eye-slash.svg" alt=""></span>
         </button>
       </div>
 

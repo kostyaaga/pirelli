@@ -1,6 +1,6 @@
 <script setup>
-import filledStar from '@/assets/image/star.svg'
-import emptyStar  from '@/assets/image/star-bold.svg'
+import filledStar from '../../public/images/star.svg'
+import emptyStar  from '../../public/images/star-bold.svg'
 defineProps({
   name: {
     type: String,
@@ -25,7 +25,7 @@ defineProps({
 <template>
   <div class="w-sm h-xs bg-[#A69992] rounded-xl p-4 ">
     <div class=" flex items-center">
-      <img class=" rounded-full" src="../assets/image/mini-avatar.png" alt="">
+      <img class=" rounded-full" src="../../public/images/mini-avatar.png" alt="">
       <h1 class="ml-3 text-xl text-black">{{ name }}</h1>
     </div>
     <div class="flex">

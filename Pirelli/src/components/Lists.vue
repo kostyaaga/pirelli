@@ -156,15 +156,15 @@ onMounted(fetchDishes);
       <div class="flex items-center gap-5 justify-center ">
         <div @click="filterIngredient" class="flex gap-5 cursor-pointer">
           <p>ингридиенты</p>
-          <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+          <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
         </div>
         <div @click="filterCategory" class="flex gap-5 cursor-pointer">
           <p>категории</p>
-          <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+          <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
         </div>
         <div @click="filterRating" class="flex gap-5 cursor-pointer">
           <p>оценки</p>
-          <img class="filter brightness-0 invert-[0%]" src="../assets/image/Vector%201.svg" alt="">
+          <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
         </div>
       </div>
       <div class="flex justify-center">
@@ -297,16 +297,16 @@ onMounted(fetchDishes);
           <div v-if="isExpandedRate" class="bg-white p-5 mt-5 rounded-xl shadow-xl p-10">
             <p class="text-xl font-medium">Отсортировать блюда по оценке</p>
             <div class="flex items-center justify-center gap-5 my-3">
-              <img v-if="resGrade <= 0"  @click="filterGrade(1)" src="../assets/image/star.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade >= 1" @click="filterGrade(1)" src="../assets/image/star-bold.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade <= 1" @click="filterGrade(2)" src="../assets/image/star.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade >= 2" @click="filterGrade(2)" src="../assets/image/star-bold.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade <= 2" @click="filterGrade(3)" src="../assets/image/star.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade >= 3" @click="filterGrade(3)" src="../assets/image/star-bold.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade <= 3" @click="filterGrade(4)" src="../assets/image/star.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade >= 4" @click="filterGrade(4)" src="../assets/image/star-bold.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade <= 4" @click="filterGrade(5)" src="../assets/image/star.svg" alt="" class="w-10 cursor-pointer">
-              <img v-if="resGrade === 5" @click="filterGrade(5)" src="../assets/image/star-bold.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade <= 0" @click="filterGrade(1)" src="../../public/images/star.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade >= 1" @click="filterGrade(1)" src="../../public/images/star-bold.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade <= 1" @click="filterGrade(2)" src="../../public/images/star.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade >= 2" @click="filterGrade(2)" src="../../public/images/star-bold.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade <= 2" @click="filterGrade(3)" src="../../public/images/star.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade >= 3" @click="filterGrade(3)" src="../../public/images/star-bold.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade <= 3" @click="filterGrade(4)" src="../../public/images/star.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade >= 4" @click="filterGrade(4)" src="../../public/images/star-bold.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade <= 4" @click="filterGrade(5)" src="../../public/images/star.svg" alt="" class="w-10 cursor-pointer">
+              <img v-if="resGrade === 5" @click="filterGrade(5)" src="../../public/images/star-bold.svg" alt="" class="w-10 cursor-pointer">
             </div>
           </div>
         </transition>
@@ -319,7 +319,7 @@ onMounted(fetchDishes);
           placeholder="Поиск..."
           class="py-2 px-3 w-full outline-none bg-transparent text-gray-700 placeholder-gray-400"
       >
-      <img src="../assets/image/search.svg" alt="" class="h-5 w-5 text-gray-400">
+      <img src="../../public/images/search.svg" alt="" class="h-5 w-5 text-gray-400">
     </div>
   </div>
       <div v-if="isLoading">Загрузка...</div>

@@ -20,17 +20,21 @@ onMounted(async () => {
 
 <template>
   <div class="flex justify-center gap-10 mt-20">
-    <img src="../assets/image/dishes/img1.png" alt="qwe" class="rounded-xl ">
+    <pre>{{ dish }}</pre>
+    <div v-if="error">{{ error }}</div>
+    <div v-else>
+      <img v-if="dish.image" :src="dish.image" alt="Фото блюда" class="rounded-xl" />
+    </div>
     <div class="flex flex-col gap-4">
       <h1 class="text-2xl">{{ dish.title }}</h1>
       <h3 class="text-2xl"> {{dish.author}}</h3>
       <div class="flex gap-8">
         <div class="flex items-center gap-2 transition-all duration-300 hover:scale-105">
-          <img src="../assets/image/clock.svg" alt="Время" class="w-6 h-6 animate-pulse filter brightness-0 invert-0 dark:brightness-100 dark:invert">
+          <img src="../../public/images/clock.svg" alt="Время" class="w-6 h-6 animate-pulse filter brightness-0 invert-0 dark:brightness-100 dark:invert">
           <span>{{ dish.time }} минут</span>
         </div>
         <div class="flex items-center gap-2 transition-all duration-300 hover:scale-105">
-          <img src="../assets/image/star-white.svg" alt="Оценка" class="w-6 h-6 filter brightness-0 invert-0 dark:brightness-100 dark:invert">
+          <img src="../../public/images/star-white.svg" alt="Оценка" class="w-6 h-6 filter brightness-0 invert-0 dark:brightness-100 dark:invert">
           <span>{{ dish.grade }} оценка</span>
         </div>
       </div>

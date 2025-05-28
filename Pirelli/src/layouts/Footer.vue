@@ -39,15 +39,15 @@
       <div class="flex gap-3 flex-col">
         <p class="font-bold">Соц сети</p>
         <a href="" class="flex gap-3">
-          <img src="../assets/image/snapchat.svg" alt="">
+          <img src="../../public/images/snapchat.svg" alt="">
           <p>Snapchat</p>
         </a>
         <a href="" class="flex gap-3">
-          <img src="../assets/image/Plain.svg" alt="">
+          <img src="../../public/images/Plain.svg" alt="">
           <p>Telegram</p>
         </a>
         <a href="" class="flex gap-3">
-          <img src="../assets/image/facebook.svg" alt="">
+          <img src="../../public/images/facebook.svg" alt="">
           <p>Facebook</p>
         </a>
       </div>

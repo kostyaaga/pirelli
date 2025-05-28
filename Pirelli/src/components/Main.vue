@@ -7,10 +7,10 @@ import { Autoplay as SwiperAutoplay, Pagination as SwiperPagination, Navigation 
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-import slide1 from '@/assets/image/slide1.jpg';
-import slide2 from '@/assets/image/slide2.jpg';
-import slide3 from '@/assets/image/slide3.jpg';
-import slide4 from '@/assets/image/slide4.jpg';
+import slide1 from '../../public/images/slide1.jpg';
+import slide2 from '../../public/images/slide2.jpg';
+import slide3 from '../../public/images/slide3.jpg';
+import slide4 from '../../public/images/slide4.jpg';
 
 const slides = [
   { image: slide1, alt: 'Slide 1' },
@@ -19,14 +19,14 @@ const slides = [
   { image: slide4, alt: 'Slide 4' }
 ];
 
-import slider1 from '@/assets/image/slide1.jpg'
-import slider2 from '@/assets/image/slide2.jpg'
-import slider3 from '@/assets/image/slide3.jpg'
-import slider4 from '@/assets/image/slide4.jpg'
-import slider5 from '@/assets/image/slide1.jpg'
-import slider6 from '@/assets/image/slide2.jpg'
-import slider7 from '@/assets/image/slide3.jpg'
-import slider8 from '@/assets/image/slide4.jpg'
+import slider1 from '../../public/images/slide1.jpg'
+import slider2 from '../../public/images/slide2.jpg'
+import slider3 from '../../public/images/slide3.jpg'
+import slider4 from '../../public/images/slide4.jpg'
+import slider5 from '../../public/images/slide1.jpg'
+import slider6 from '../../public/images/slide2.jpg'
+import slider7 from '../../public/images/slide3.jpg'
+import slider8 from '../../public/images/slide4.jpg'
 
 const images = [
   { image: slider1, alt: 'Slide 1' },
@@ -83,19 +83,19 @@ const images = [
     <h1 class="font-bold text-5xl text-start">Поплуярные авторы</h1>
     <div class="flex justify-between mt-20">
       <router-link to="/">
-        <img class="rounded-full" src="../assets/image/avatar.png" alt="">
+        <img class="rounded-full" src="../../public/images/avatar.png" alt="">
         <p class="text-center text-xl mt-5">Иван петров</p>
       </router-link>
       <router-link to="/">
-        <img class="rounded-full" src="../assets/image/avatar.png" alt="">
+        <img class="rounded-full" src="../../public/images/avatar.png" alt="">
         <p class="text-center text-xl mt-5">Иван петров</p>
       </router-link>
       <router-link to="/">
-        <img class="rounded-full" src="../assets/image/avatar.png" alt="">
+        <img class="rounded-full" src="../../public/images/avatar.png" alt="">
         <p class="text-center text-xl mt-5">Иван петров</p>
       </router-link>
       <router-link to="/">
-        <img class="rounded-full" src="../assets/image/avatar.png" alt="">
+        <img class="rounded-full" src="../../public/images/avatar.png" alt="">
         <p class="text-center text-xl mt-5">Иван петров</p>
       </router-link>
     </div>
@@ -143,26 +143,26 @@ const images = [
       <div class="flex gap-3">
         <div class="">
           <p class="w-[426px]" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium aspernatur doloribus ducimus eius est, et facilis fuga maiores necessitatibus neque non optio quae quasi quisquam quo, similique sunt ut.</p>
-          <img src="../assets/image/arrow1.svg" alt="">
+          <img src="../../public/images/arrow1.svg" alt="">
         </div>
         <div class="">
-          <img class="w-[426px] h-auto mt-30" src="../assets/image/slide1.jpg" alt="">
+          <img class="w-[426px] h-auto mt-30" src="../../public/images/slide1.jpg" alt="">
         </div>
         <div class="">
           <p class="w-[426px]" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium aspernatur doloribus ducimus eius est, et facilis fuga maiores necessitatibus neque non optio quae quasi quisquam quo, similique sunt ut.</p>
-          <img src="../assets/image/arrow3.svg" alt="">
+          <img src="../../public/images/arrow3.svg" alt="">
         </div>
       </div>
       <div class="flex gap-3 my-10 content-center">
         <div class="">
-          <img class="w-[426px] w-[426px] mt-30" src="../assets/image/slide2.jpg" alt="">
+          <img class="w-[426px] w-[426px] mt-30" src="../../public/images/slide2.jpg" alt="">
         </div>
         <div class="">
           <p class="w-[426px]" >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus accusantium aspernatur doloribus ducimus eius est, et facilis fuga maiores necessitatibus neque non optio quae quasi quisquam quo, similique sunt ut.</p>
-          <img src="../assets/image/arrow2.svg" alt="">
+          <img src="../../public/images/arrow2.svg" alt="">
         </div>
         <div class="">
-          <img class="w-[426px]" src="../assets/image/slide3.jpg" alt="">
+          <img class="w-[426px]" src="../../public/images/slide3.jpg" alt="">
         </div>
       </div>
     </div>

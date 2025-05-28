@@ -107,8 +107,8 @@ const handleSubmit = async () => {
             type="button"
             aria-label="Показать пароль"
         >
-          <span v-if="showPassword"><img src="../assets/image/eye.svg" alt="Скрыть пароль"></span>
-          <span v-else><img src="../assets/image/eye-slash.svg" alt="Показать пароль"></span>
+          <span v-if="showPassword"><img src="../../public/images/eye.svg" alt="Скрыть пароль"></span>
+          <span v-else><img src="../../public/images/eye-slash.svg" alt="Показать пароль"></span>
         </button>
       </div>
 
