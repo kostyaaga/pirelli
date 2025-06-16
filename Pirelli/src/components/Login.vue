@@ -1,5 +1,5 @@
 <script setup>
-import { inject, ref} from 'vue';
+import { inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const showPassword = ref(false);
@@ -10,13 +10,13 @@ const router = useRouter();
 const { setToken } = inject('auth');
 
 const formData = ref({
-  email: '',
+  login: '',
   password: '',
 });
 
 const validateForm = () => {
-  if (!formData.value.email) {
-    status.value = 'Пожалуйста, введите email';
+  if (!formData.value.login) {
+    status.value = 'Пожалуйста, введите логин';
     return false;
   }
 
@@ -50,7 +50,7 @@ const handleSubmit = async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email: formData.value.email,
+        login: formData.value.login,
         password: formData.value.password,
       }),
     });
@@ -59,35 +59,44 @@ const handleSubmit = async () => {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    responseData.value = await response.json();
+    const authData = await response.json();
     status.value = 'Успешный вход!';
 
-    if (responseData.value.token) {
-      setToken(responseData.value.token);
+    if (authData.token) {
+      const token = authData.token;
+
+      // Дополнительный запрос на получение роли
+      const userInfoResp = await fetch(`https://fbe52826bb0b11d9.mokky.dev/users?login=${formData.value.login}`);
+      const users = await userInfoResp.json();
+
+      const role = users?.[0]?.role ?? null; // предполагается, что логин уникален
+
+      setToken(token, role);
+      console.log(token, role);
       router.push('/');
     }
 
   } catch (error) {
     console.error('Ошибка при входе:', error);
-    status.value = error.response?.data?.message || 'Неверный email или пароль';
+    status.value = error.response?.data?.message || 'Неверный логин или пароль';
   } finally {
     isLoading.value = false;
   }
 };
 
-</script>
 
+</script>
 <template>
   <div class="flex flex-col justify-center items-center mt-20 gap-8">
     <h1 class="text-3xl font-bold">Вход</h1>
 
     <form @submit.prevent="handleSubmit" class="flex flex-col justify-center gap-5 w-full max-w-md">
       <input
-          v-model.trim="formData.email"
+          v-model.trim="formData.login"
           @input="resetStatus"
           class="w-full p-2 border rounded pr-10"
-          type="email"
-          placeholder="Email"
+          type="text"
+          placeholder="Логин"
           required
       >
 

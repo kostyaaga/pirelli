@@ -11,7 +11,6 @@ const filters = reactive({
   searchQuery: ''
 })
 const isExpandedIngredients = ref(false);
-const isExpandedCategory = ref(false);
 const isExpandedRate = ref(false);
 const whiteInput = ref('');
 const blackInput = ref('');
@@ -94,21 +93,25 @@ const onChangeSearchInput = (event) => {
 }
 
 function filterIngredient(){
-  isExpandedIngredients.value = true;
-  isExpandedCategory.value = false;
-  isExpandedRate.value = false;
-}
-
-function filterCategory(){
-  isExpandedIngredients.value = false;
-  isExpandedCategory.value = true;
-  isExpandedRate.value = false;
+  if(isExpandedIngredients.value === true){
+    isExpandedIngredients.value = false;
+  }
+  else{
+    isExpandedIngredients.value = true;
+    isExpandedRate.value = false;
+  }
 }
 
 function filterRating(){
-  isExpandedIngredients.value = false;
-  isExpandedCategory.value = false;
-  isExpandedRate.value = true;
+  if(isExpandedRate.value === true){
+    isExpandedRate.value = false;
+    resGrade.value = null;
+  }
+  else{
+    isExpandedIngredients.value = false;
+    isExpandedRate.value = true;
+  }
+
 }
 
 function addProduct() {
@@ -155,15 +158,11 @@ onMounted(fetchDishes);
     <div>
       <div class="flex items-center gap-5 justify-center ">
         <div @click="filterIngredient" class="flex gap-5 cursor-pointer">
-          <p>ингридиенты</p>
-          <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
-        </div>
-        <div @click="filterCategory" class="flex gap-5 cursor-pointer">
-          <p>категории</p>
+          <p>Ингридиенты</p>
           <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
         </div>
         <div @click="filterRating" class="flex gap-5 cursor-pointer">
-          <p>оценки</p>
+          <p>Оценки</p>
           <img class="filter brightness-0 invert-[0%]" src="../../public/images/vector1.svg" alt="">
         </div>
       </div>
@@ -275,19 +274,6 @@ onMounted(fetchDishes);
 
         <transition
             enter-active-class="transition-all duration-500 ease-out"
-            enter-from-class="opacity-0 rotate-x-90"
-            enter-to-class="opacity-100 rotate-x-0"
-            leave-active-class="transition-all duration-300 ease-in"
-            leave-from-class="opacity-100 rotate-x-0"
-            leave-to-class="opacity-0 rotate-x-90"
-        >
-          <div v-if="isExpandedCategory" class="bg-white p-5 mt-5 rounded-xl shadow-xl transform-style-preserve-3d">
-            <p class="text-xl font-medium">Категории</p>
-          </div>
-        </transition>
-
-        <transition
-            enter-active-class="transition-all duration-500 ease-out"
             enter-from-class="opacity-0 scale-50"
             enter-to-class="opacity-100 scale-100"
             leave-active-class="transition-all duration-300 ease-in"
@@ -342,7 +328,7 @@ onMounted(fetchDishes);
           :carbohydrates="item.carbohydrates"
           :ingredient="item.ingredient"
       />
-      </div>
+  </div>
 
 
 </template>

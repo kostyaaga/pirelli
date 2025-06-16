@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import router from "@/router/index.js";
 
 const showPassword = ref(false);
 const showPassword1 = ref(false);
@@ -37,6 +38,12 @@ const validateForm = () => {
     status.value = 'Пароль должен содержать цифры';
     return false;
   }
+
+  if (!/^[a-zA-Z][a-zA-Z0-9]*$/.test(formData.value.login)){
+    status.value = 'Логин должен содержат только латиницу и цифры';
+    return false;
+  }
+
   return true;
 };
 
@@ -62,15 +69,19 @@ async function handleSubmit() {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        fullName: formData.value.fullName,
+        login: formData.value.login,
+        FIO: formData.value.FIO,
         email: formData.value.email,
-        password: formData.value.password
+        password: formData.value.password,
+        avatar: "",
+        role: "",
       })
     });
 
     if (res.ok) {
       status.value = 'Успешная регистрация!';
       responseData.value = await res.json();
+      router.push('/login')
     } else {
       status.value = 'Ошибка регистрации';
     }
@@ -89,7 +100,14 @@ async function handleSubmit() {
 
     <form @submit.prevent="handleSubmit" class="flex flex-col justify-center gap-5 w-full max-w-md">
       <input
-          v-model="formData.fullName"
+          v-model="formData.login"
+          class="w-full p-2 border rounded pr-10"
+          type="text"
+          placeholder="Логин"
+          required
+      >
+      <input
+          v-model="formData.FIO"
           class="w-full p-2 border rounded pr-10"
           type="text"
           placeholder="Полное имя"

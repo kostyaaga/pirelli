@@ -3,12 +3,14 @@
 import {inject} from "vue";
 
 const handleLogout = () => {
-  localStorage.removeItem('authToken'); // Очищаем токен
+  localStorage.removeItem('authToken');
   window.location.reload();
 };
 
 
-const { isAuthenticated } = inject('auth');
+const { isAuthenticated, isAdmin} = inject('auth');
+
+
 
 </script>
 
@@ -33,6 +35,7 @@ const { isAuthenticated } = inject('auth');
             <router-link to="/login">Вход</router-link>
           </div>
           <div v-else class="flex gap-6 items-center">
+            <router-link to="/list_users" v-if="isAdmin()">Список пользователй</router-link>
             <router-link to="/profile">Профиль</router-link>
             <a @click="handleLogout" class="cursor-pointer">Выйти</a>
           </div>

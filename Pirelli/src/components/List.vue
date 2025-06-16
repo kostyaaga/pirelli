@@ -1,12 +1,15 @@
 <script setup>
-import { ref } from "vue";
+import {inject, ref} from "vue";
 import { useRouter } from 'vue-router'
+import axios from "axios";
 
 const router = useRouter()
 
 const goToDish = (id) => {
   router.push({ name: 'DishDetail', params: { id } })
 }
+
+const { isAuthenticated, isAdmin} = inject('auth');
 
 defineProps({
   id: { type: Number, required: true },
@@ -26,6 +29,7 @@ defineProps({
 
 const isExpandedNutrition = ref(false);
 const isExpandedIngredients = ref(false);
+const isSave =ref(false);
 
 function toggleNutritionDetails() {
   isExpandedNutrition.value = !isExpandedNutrition.value;
@@ -35,17 +39,34 @@ function toggleIngredientsDetails() {
   isExpandedIngredients.value = !isExpandedIngredients.value;
 }
 
-let imageTest = "img1"
+function saveDish() {
+  isSave.value = !isSave.value;
+}
+
+const deleteDish = async (id) => {
+  if (!confirm('Вы уверены, что хотите удалить это блюдо?')) return;
+  try {
+    await axios.delete(`https://fbe52826bb0b11d9.mokky.dev/dishes/${id}`);
+    alert('Блюдо удалено');
+  } catch (error) {
+    console.error('Ошибка при удалении блюда:', error);
+    alert('Не удалось удалить блюдо');
+  }
+}
+
 </script>
 
 <template>
-  <div class="relative text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
+  <div class="relative w-full text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
     <div class="flex">
-      <div @click="goToDish(id)" class="w-1/3 flex-shrink-0 overflow-hidden">
+      <div class="w-1/3 flex-shrink-0 overflow-hidden">
+        <img v-if="isAuthenticated() && !isSave"  @click="saveDish" src="../../public/images/save-icon.svg" alt="" class="absolute w-10 m-5"/>
+        <img v-if="isAuthenticated()&& isSave" @click="saveDish" src="../../public/images/save-icon-chosen.svg" alt="" class="absolute w-10 m-5"/>
         <img
+            @click="goToDish(id)"
             :src="image"
             alt="Изображение рецепта"
-            class="w-full h-full object-cover transition-all duration-700 hover:scale-110 hover:rotate-1"
+            class="w-full h-full object-cover transition-all duration-700"
         >
       </div>
 
@@ -53,7 +74,12 @@ let imageTest = "img1"
         <div @click="goToDish(id)" class="space-y-2">
           <h3 class="text-3xl font-bold transition-all duration-300 hover:text-amber-300 hover:translate-x-1">{{ title }}</h3>
           <p class="text-2xl text-amber-200 transition-all duration-500 hover:translate-x-2">{{ author }}</p>
+
         </div>
+
+        <button v-if="isAdmin()" @click="deleteDish(id)" class="text-red-300 hover:text-red-500">
+          Удалить блюдо
+        </button>
 
         <p class="text-lg opacity-90 transition-all duration-300 hover:opacity-100">{{ description }}</p>
 
@@ -76,7 +102,7 @@ let imageTest = "img1"
                 :class="isExpandedNutrition ? 'bg-amber-500 text-stone-900 scale-105' : 'bg-stone-600'"
             >
               <img
-                  src="../assets/image/Vector%201.svg"
+                  src="../../public/images/vector1.svg"
                   alt="КБЖУ"
                   class="w-5 h-5 transition-all duration-700"
                   :class="{'rotate-180': isExpandedNutrition}"
@@ -90,7 +116,7 @@ let imageTest = "img1"
                 :class="isExpandedIngredients ? 'bg-amber-500 text-stone-900 scale-105' : 'bg-stone-600'"
             >
               <img
-                  src="../assets/image/Vector%201.svg"
+                  src="../../public/images/vector1.svg"
                   alt="Ингредиенты"
                   class="w-5 h-5 transition-all duration-500"
                   :class="{'rotate-45': isExpandedIngredients}"
