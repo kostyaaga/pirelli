@@ -27,7 +27,6 @@ const { isAuthenticated, isAdmin} = inject('auth');
         <div class="flex gap-6 items-center">
           <router-link to="/">Главная</router-link>
           <router-link to="/lists">Список блюд</router-link>
-          <a href="">Мои рецепты</a>
         </div>
         <div>
           <div v-if="!isAuthenticated()"  class="flex gap-6 items-center" >

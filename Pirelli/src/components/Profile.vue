@@ -22,8 +22,9 @@ const fetchUser = async () => {
   }
 }
 
+
 const handleLogout = () => {
-  localStorage.removeItem('authToken'); // Очищаем токен
+  localStorage.removeItem('authToken');
   window.location.reload();
 };
 
@@ -50,25 +51,6 @@ onMounted(() => {
         </div>
 
         <div class="border-t border-gray-100 pt-4 space-y-1">
-
-        <router-link to="save">
-          <button class="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors">
-          <span class="text-gray-700 font-medium">Сохраненные рецепты</span>
-        </button>
-        </router-link>
-
-<!--          <button class="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors">-->
-<!--            <span class="text-gray-700 font-medium">Стать автором</span>-->
-<!--          </button>-->
-
-<!--          <button class="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors">-->
-<!--            <span class="text-gray-700 font-medium">Мои рецепты</span>-->
-<!--          </button>-->
-
-
-          <div class="border-t border-gray-100 my-2"></div>
-
-
           <button
               @click="handleLogout"
               class="w-full text-left px-4 py-3 hover:bg-gray-50 rounded-lg transition-colors text-red-500 font-medium"

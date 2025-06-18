@@ -1,5 +1,5 @@
 <script setup>
-import {inject, ref} from "vue";
+import {inject, onMounted, ref} from "vue";
 import { useRouter } from 'vue-router'
 import axios from "axios";
 
@@ -9,7 +9,7 @@ const goToDish = (id) => {
   router.push({ name: 'DishDetail', params: { id } })
 }
 
-const { isAuthenticated, isAdmin} = inject('auth');
+const { isAdmin} = inject('auth');
 
 defineProps({
   id: { type: Number, required: true },
@@ -31,6 +31,7 @@ const isExpandedNutrition = ref(false);
 const isExpandedIngredients = ref(false);
 const isSave =ref(false);
 
+
 function toggleNutritionDetails() {
   isExpandedNutrition.value = !isExpandedNutrition.value;
 }
@@ -39,9 +40,6 @@ function toggleIngredientsDetails() {
   isExpandedIngredients.value = !isExpandedIngredients.value;
 }
 
-function saveDish() {
-  isSave.value = !isSave.value;
-}
 
 const deleteDish = async (id) => {
   if (!confirm('Вы уверены, что хотите удалить это блюдо?')) return;
@@ -54,14 +52,13 @@ const deleteDish = async (id) => {
   }
 }
 
+
 </script>
 
 <template>
   <div class="relative w-full text-stone-50 bg-stone-500 rounded-[30px] overflow-hidden transition-all duration-500 hover:scale-[1.01]">
     <div class="flex">
       <div class="w-1/3 flex-shrink-0 overflow-hidden">
-        <img v-if="isAuthenticated() && !isSave"  @click="saveDish" src="../../public/images/save-icon.svg" alt="" class="absolute w-10 m-5"/>
-        <img v-if="isAuthenticated()&& isSave" @click="saveDish" src="../../public/images/save-icon-chosen.svg" alt="" class="absolute w-10 m-5"/>
         <img
             @click="goToDish(id)"
             :src="image"

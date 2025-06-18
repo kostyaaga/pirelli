@@ -65,11 +65,10 @@ const handleSubmit = async () => {
     if (authData.token) {
       const token = authData.token;
 
-      // Дополнительный запрос на получение роли
       const userInfoResp = await fetch(`https://fbe52826bb0b11d9.mokky.dev/users?login=${formData.value.login}`);
       const users = await userInfoResp.json();
 
-      const role = users?.[0]?.role ?? null; // предполагается, что логин уникален
+      const role = users?.[0]?.role ?? null;
 
       setToken(token, role);
       console.log(token, role);
